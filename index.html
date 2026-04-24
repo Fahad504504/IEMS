@@ -1053,6 +1053,271 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
 
+  /* ═══════════════════════════════════════════
+     ENGINEER DASHBOARD
+  ═══════════════════════════════════════════ */
+  #page-engineer {
+    --eng-role-color: #3d8bff;
+    --eng-bg: #0a0e1a;
+    --eng-surface: #111827;
+    --eng-elevated: #1a2236;
+    --eng-card: #141c2e;
+    background: var(--eng-bg);
+    height: 100vh;
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+  }
+
+  #page-engineer .eng-tabs {
+    background: #0d1220;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    padding: 0 14px;
+    flex-shrink: 0;
+  }
+
+  #page-engineer .etab {
+    padding: 8px 16px;
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+
+  #page-engineer .etab:hover { color: var(--text-primary); }
+  #page-engineer .etab.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+  #page-engineer .eng-main {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  #page-engineer .eng-left-panel {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  #page-engineer .chart-area {
+    padding: 12px 14px;
+    flex-shrink: 0;
+    background: #0d1220;
+    border-bottom: 1px solid var(--border);
+  }
+
+  #page-engineer .chart-hdr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  #page-engineer .chart-title-txt { font-size: 11px; color: var(--text-secondary); }
+
+  #page-engineer .filter-pills { display: flex; gap: 5px; }
+
+  #page-engineer .fp {
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px solid var(--border-bright);
+    color: var(--text-secondary);
+    background: transparent;
+  }
+
+  #page-engineer .fp.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+  #eng-volt-chart { width: 100%; height: 140px; display: block; }
+
+  #page-engineer .anomaly-list {
+    padding: 8px 14px;
+    background: #0d1220;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  #page-engineer .an-title {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  #page-engineer .an-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: var(--bg-card);
+    border: 1px solid rgba(245,166,35,0.2);
+    border-left: 2px solid var(--amber);
+    border-radius: 3px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  #page-engineer .an-row:hover { border-color: rgba(245,166,35,0.5); background: rgba(245,166,35,0.05); }
+  #page-engineer .an-row.selected { border-color: var(--amber); background: rgba(245,166,35,0.08); }
+  #page-engineer .an-time { font-family: var(--font-mono); font-size: 10px; color: var(--amber); width: 100px; flex-shrink: 0; }
+  #page-engineer .an-score { font-family: var(--font-mono); font-size: 10px; color: var(--text-primary); background: rgba(245,166,35,0.1); padding: 1px 6px; border-radius: 2px; }
+  #page-engineer .an-desc { font-size: 10px; color: var(--text-secondary); flex: 1; }
+
+  #page-engineer .eng-detail { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+
+  #page-engineer .detail-hdr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 14px;
+    background: #0d1220;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  #page-engineer .detail-title { font-size: 11px; color: var(--text-primary); }
+  #page-engineer .an-score-big { font-family: var(--font-mono); font-size: 14px; color: var(--amber); background: rgba(245,166,35,0.1); padding: 3px 10px; border-radius: 3px; }
+
+  #page-engineer .detail-content { flex: 1; overflow-y: auto; padding: 10px 14px; }
+  #page-engineer .detail-content::-webkit-scrollbar { width: 3px; }
+  #page-engineer .detail-content::-webkit-scrollbar-thumb { background: var(--border-bright); }
+
+  #page-engineer .dtable { width: 100%; border-collapse: collapse; }
+  #page-engineer .dtable tr { border-bottom: 1px solid rgba(255,255,255,0.04); }
+  #page-engineer .dtable tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+  #page-engineer .dtable td { padding: 7px 8px; font-size: 11px; }
+  #page-engineer .dt-param { color: var(--text-secondary); }
+  #page-engineer .dt-val { font-family: var(--font-mono); color: var(--text-primary); }
+  #page-engineer .dt-status { text-align: right; }
+
+  #page-engineer .pill { font-size: 9px; padding: 1px 6px; border-radius: 2px; text-transform: uppercase; }
+  #page-engineer .pill-n { background: rgba(0,212,160,0.1); color: var(--teal); }
+  #page-engineer .pill-a { background: rgba(245,166,35,0.1); color: var(--amber); }
+  #page-engineer .pill-r { background: rgba(232,64,64,0.1); color: var(--red); }
+
+  #page-engineer .action-row {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+    background: #0d1220;
+  }
+
+  #page-engineer .btn-exp,
+  #page-engineer .btn-inc {
+    padding: 7px 14px;
+    background: transparent;
+    border-radius: 3px;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: var(--font-head);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    transition: all 0.2s;
+  }
+
+  #page-engineer .btn-exp { border: 1px solid var(--blue); color: var(--blue); }
+  #page-engineer .btn-exp:hover { background: rgba(61,139,255,0.08); }
+  #page-engineer .btn-inc { border: 1px solid var(--amber); color: var(--amber); }
+  #page-engineer .btn-inc:hover { background: rgba(245,166,35,0.08); }
+
+  #page-engineer .inc-field {
+    flex: 1;
+    padding: 7px 10px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-bright);
+    border-radius: 3px;
+    color: var(--text-secondary);
+    font-size: 10px;
+    font-family: var(--font-body);
+  }
+
+  #page-engineer .inc-field:focus { outline: none; border-color: var(--blue); }
+
+  #page-engineer .eng-right-panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #0d1220;
+  }
+
+  #page-engineer .gtg-tech { padding: 10px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  #page-engineer .gtg-tech-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  #page-engineer .gtt { background: var(--bg-card); border: 1px solid var(--border-bright); border-radius: 4px; padding: 8px 10px; }
+  #page-engineer .gtt-id { font-family: var(--font-head); font-size: 12px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+  #page-engineer .gtt-mw { font-family: var(--font-mono); font-size: 18px; color: var(--teal); margin-bottom: 2px; }
+  #page-engineer .gtt-mw.p { color: var(--amber); }
+  #page-engineer .gtt-mw.s { color: var(--grey); }
+  #page-engineer .gtt-rows { font-size: 9px; }
+  #page-engineer .gtt-row { display: flex; justify-content: space-between; padding: 2px 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-muted); }
+  #page-engineer .gtt-row span:last-child { color: var(--text-secondary); font-family: var(--font-mono); }
+
+  #page-engineer .volt-table-sec { padding: 10px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  #page-engineer .vtable { width: 100%; border-collapse: collapse; font-size: 10px; }
+  #page-engineer .vtable th { padding: 4px 6px; text-align: left; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 1px solid var(--border); }
+  #page-engineer .vtable td { padding: 5px 6px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  #page-engineer .vtable tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  #page-engineer .vt-kv { font-family: var(--font-mono); color: var(--text-secondary); }
+  #page-engineer .vt-val { font-family: var(--font-mono); color: var(--teal); }
+  #page-engineer .vt-val.r { color: var(--red); }
+  #page-engineer .vt-val.a { color: var(--amber); }
+  #page-engineer .vt-curr,
+  #page-engineer .vt-pf { font-family: var(--font-mono); color: var(--text-primary); }
+
+  #page-engineer .model-sec { flex: 1; overflow-y: auto; padding: 10px 14px; }
+  #page-engineer .model-sec::-webkit-scrollbar { width: 3px; }
+  #page-engineer .model-sec::-webkit-scrollbar-thumb { background: var(--border-bright); }
+  #page-engineer .mp-title { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  #page-engineer .mp-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 10px; }
+  #page-engineer .mp-label { color: var(--text-secondary); }
+  #page-engineer .mp-val { font-family: var(--font-mono); color: var(--teal); }
+  #page-engineer .mp-val.good { color: var(--teal); }
+  #page-engineer .mp-val.warn { color: var(--amber); }
+  #page-engineer .btn-edit-model {
+    width: 100%;
+    margin-top: 10px;
+    padding: 7px;
+    background: transparent;
+    border: 1px solid rgba(61,139,255,0.3);
+    border-radius: 3px;
+    color: var(--blue);
+    font-size: 10px;
+    cursor: pointer;
+    font-family: var(--font-head);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  #page-engineer .btn-edit-model:hover { background: rgba(61,139,255,0.07); }
+
+  .eng-toast {
+    position: fixed;
+    top: 54px;
+    right: 16px;
+    background: #1a2a40;
+    border: 1px solid var(--blue);
+    border-radius: 4px;
+    padding: 9px 14px;
+    font-size: 12px;
+    color: #a0c4ff;
+    z-index: 1001;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+
+  .eng-toast.show { opacity: 1; transform: translateY(0); }
+
     /* ═══════════════════════════════════════════
        SECTION LEADER DASHBOARD
     ═══════════════════════════════════════════ */
@@ -1214,6 +1479,61 @@
     .sl-cost-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 4px; padding: 10px 12px; }
     .sl-cost-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
     .sl-cost-val { font-family: var(--font-mono); font-size: 18px; line-height: 1; }
+
+    .sl-report-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: #0d1220;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      flex-shrink: 0;
+    }
+
+    .sl-report-toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sl-report-label {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .sl-report-select {
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--border-bright);
+      border-radius: 4px;
+      padding: 7px 10px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      min-width: 170px;
+      outline: none;
+    }
+
+    .sl-report-select:focus { border-color: var(--teal); }
+
+    .sl-report-btn {
+      padding: 7px 12px;
+      background: var(--teal);
+      color: #0a0e1a;
+      border: none;
+      border-radius: 4px;
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .sl-report-btn:hover { background: var(--teal-dim); }
 </style>
 </head>
 <body>
@@ -1636,6 +1956,172 @@
 
 <!-- TOAST -->
 <div class="toast" id="toast">Recommendation accepted — GTG-02 dispatch updated to 28.0 MW</div>
+<div id="page-engineer" class="page">
+        <nav class="topnav">
+          <div class="topnav-brand">
+            <div class="topnav-logo">IEMS</div>
+            <div class="topnav-plant">POWER PLANT-1</div>
+          </div>
+          <div class="topnav-tabs">
+            <div class="topnav-tab">Overview</div>
+            <div class="topnav-tab active">Substation</div>
+            <div class="topnav-tab">Assets</div>
+            <div class="topnav-tab">Parameter</div>
+            <div class="topnav-tab">Connection Status</div>
+            <div class="topnav-tab">AI Model Settings</div>
+          </div>
+          <div class="topnav-right">
+            <div class="topnav-time" id="eng-tm">--:--:--</div>
+            <div class="alarm-badge"><div class="alarm-dot"></div>1 ALARM — 132 kV</div>
+            <div class="topnav-user"><div class="topnav-avatar" style="background:var(--blue);color:#fff;" id="eng-avatar">BM</div><span id="eng-name">Bader Al Mansoori</span></div>
+            <div class="topnav-tab" onclick="signOutEngineer()" style="color:var(--red);font-size:12px;">Sign Out</div>
+          </div>
+        </nav>
+
+        <div class="eng-tabs" id="eng-tabs">
+          <div class="etab active">33 kV — Voltage Stability</div>
+          <div class="etab">132 kV — Alarm Investigation</div>
+          <div class="etab">11 kV — Load Flow</div>
+          <div class="etab">Generation Analysis</div>
+          <div class="etab">Power Quality</div>
+        </div>
+
+        <div class="eng-main">
+          <div class="eng-left-panel">
+            <div class="chart-area">
+              <div class="chart-hdr">
+                <span class="chart-title-txt">Voltage trend — 33 kV busbar — last 4 hours</span>
+                <div class="filter-pills" id="eng-filters">
+                  <span class="fp">1 hr</span>
+                  <span class="fp active">4 hrs</span>
+                  <span class="fp">8 hrs</span>
+                  <span class="fp">24 hrs</span>
+                </div>
+              </div>
+              <canvas id="eng-volt-chart"></canvas>
+            </div>
+
+            <div class="anomaly-list">
+              <div class="an-title">Flagged anomaly intervals (3 detected)</div>
+              <div class="an-row selected" onclick="selectEngineerAnomaly(this,'08:14 — 08:22','0.87')">
+                <span class="an-time">08:14 — 08:22</span>
+                <span class="an-score">Score: 0.87</span>
+                <span class="an-desc">Voltage dip — corr. with 11 kV motor start-up downstream</span>
+              </div>
+              <div class="an-row" onclick="selectEngineerAnomaly(this,'07:03 — 07:09','0.62')">
+                <span class="an-time">07:03 — 07:09</span>
+                <span class="an-score">Score: 0.62</span>
+                <span class="an-desc">Minor oscillation — harmonic injection suspected</span>
+              </div>
+              <div class="an-row" onclick="selectEngineerAnomaly(this,'06:41 — 06:44','0.44')">
+                <span class="an-time">06:41 — 06:44</span>
+                <span class="an-score">Score: 0.44</span>
+                <span class="an-desc">Low severity dip — transient load switching</span>
+              </div>
+            </div>
+
+            <div class="eng-detail">
+              <div class="detail-hdr">
+                <span class="detail-title" id="eng-det-title">Engineering detail — anomaly interval 08:14 — 08:22</span>
+                <span class="an-score-big" id="eng-det-score">Anomaly score: 0.87</span>
+              </div>
+              <div class="detail-content">
+                <table class="dtable">
+                  <tr><td class="dt-param">Voltage (kV)</td><td class="dt-val">31.8 kV</td><td class="dt-status"><span class="pill pill-a">Below range</span></td></tr>
+                  <tr><td class="dt-param">Current (A)</td><td class="dt-val">1,842 A</td><td class="dt-status"><span class="pill pill-n">Normal</span></td></tr>
+                  <tr><td class="dt-param">Active power (MW)</td><td class="dt-val">58.5 MW</td><td class="dt-status"><span class="pill pill-n">Normal</span></td></tr>
+                  <tr><td class="dt-param">Reactive power (MVAr)</td><td class="dt-val">12.3 MVAr</td><td class="dt-status"><span class="pill pill-n">Normal</span></td></tr>
+                  <tr><td class="dt-param">Power factor</td><td class="dt-val">0.978</td><td class="dt-status"><span class="pill pill-n">Normal</span></td></tr>
+                  <tr><td class="dt-param">Harmonic distortion (%)</td><td class="dt-val">4.2 %</td><td class="dt-status"><span class="pill pill-a">Advisory</span></td></tr>
+                  <tr><td class="dt-param">Frequency (Hz)</td><td class="dt-val">49.97 Hz</td><td class="dt-status"><span class="pill pill-n">Normal</span></td></tr>
+                  <tr><td class="dt-param">Load unbalance (%)</td><td class="dt-val">1.8 %</td><td class="dt-status"><span class="pill pill-n">Normal</span></td></tr>
+                  <tr><td class="dt-param">Downstream motor SS501</td><td class="dt-val">Start-up event</td><td class="dt-status"><span class="pill pill-a">Correlated</span></td></tr>
+                  <tr><td class="dt-param">Model input — sensor QS</td><td class="dt-val">94%</td><td class="dt-status"><span class="pill pill-n">Good</span></td></tr>
+                </table>
+              </div>
+              <div class="action-row">
+                <button class="btn-exp" onclick="showEngineerToast('Data exported: 33kV_anomaly_0814_0822.csv')">Export CSV</button>
+                <button class="btn-inc">Log Incident</button>
+                <input class="inc-field" placeholder="Enter root cause finding...">
+              </div>
+            </div>
+          </div>
+
+          <div class="eng-right-panel">
+            <div class="section-header"><div class="live-dot"></div><div class="section-title">GTG Technical Status</div></div>
+            <div class="gtg-tech">
+              <div class="gtg-tech-grid">
+                <div class="gtt">
+                  <div class="gtt-id">GTG-01</div>
+                  <div class="gtt-mw">28.5 MW</div>
+                  <div class="gtt-rows">
+                    <div class="gtt-row"><span>Load %</span><span>89%</span></div>
+                    <div class="gtt-row"><span>Terminal V</span><span>11.0 kV</span></div>
+                    <div class="gtt-row"><span>MVAr out</span><span>8.2</span></div>
+                    <div class="gtt-row"><span>PF</span><span>0.961</span></div>
+                    <div class="gtt-row"><span>Exhaust T</span><span>548°C</span></div>
+                    <div class="gtt-row"><span>HR kJ/kWh</span><span>9,842</span></div>
+                  </div>
+                </div>
+                <div class="gtt">
+                  <div class="gtt-id">GTG-02</div>
+                  <div class="gtt-mw p">24.0 MW</div>
+                  <div class="gtt-rows">
+                    <div class="gtt-row"><span>Load %</span><span>75%</span></div>
+                    <div class="gtt-row"><span>Terminal V</span><span>11.0 kV</span></div>
+                    <div class="gtt-row"><span>MVAr out</span><span>6.1</span></div>
+                    <div class="gtt-row"><span>PF</span><span>0.969</span></div>
+                    <div class="gtt-row"><span>Exhaust T</span><span>521°C</span></div>
+                    <div class="gtt-row"><span>HR kJ/kWh</span><span>10,214</span></div>
+                  </div>
+                </div>
+                <div class="gtt">
+                  <div class="gtt-id">GTG-03</div>
+                  <div class="gtt-mw s">— MW</div>
+                  <div class="gtt-rows">
+                    <div class="gtt-row"><span>Status</span><span>Standby</span></div>
+                    <div class="gtt-row"><span>Lube oil T</span><span>42°C</span></div>
+                    <div class="gtt-row"><span>Cooling</span><span>OK</span></div>
+                    <div class="gtt-row"><span>Last run</span><span>14h ago</span></div>
+                    <div class="gtt-row"><span>Start time</span><span>~8 min</span></div>
+                    <div class="gtt-row"><span>AVR</span><span>Ready</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-header"><div class="section-title">Voltage — All Levels (Full Precision)</div></div>
+            <div class="volt-table-sec">
+              <table class="vtable">
+                <tr><th>Level</th><th>Voltage</th><th>Current</th><th>MW</th><th>PF</th><th>Status</th></tr>
+                <tr><td class="vt-kv">132 kV</td><td class="vt-val r">128.42 kV</td><td class="vt-curr">421 A</td><td class="vt-curr">52.48 MW</td><td class="vt-pf">0.992</td><td><span class="pill pill-r">Alarm</span></td></tr>
+                <tr><td class="vt-kv">33 kV</td><td class="vt-val">33.24 kV</td><td class="vt-curr">842 A</td><td class="vt-curr">48.12 MW</td><td class="vt-pf">0.981</td><td><span class="pill pill-n">Normal</span></td></tr>
+                <tr><td class="vt-kv">11 kV</td><td class="vt-val">11.08 kV</td><td class="vt-curr">1,842 A</td><td class="vt-curr">32.47 MW</td><td class="vt-pf">0.978</td><td><span class="pill pill-n">Normal</span></td></tr>
+                <tr><td class="vt-kv">3.3 kV</td><td class="vt-val">3.314 kV</td><td class="vt-curr">3,142 A</td><td class="vt-curr">17.98 MW</td><td class="vt-pf">0.967</td><td><span class="pill pill-n">Normal</span></td></tr>
+                <tr><td class="vt-kv">415 V</td><td class="vt-val a">413.8 V</td><td class="vt-curr">11,842 A</td><td class="vt-curr">8.52 MW</td><td class="vt-pf">0.944</td><td><span class="pill pill-a">Advisory</span></td></tr>
+              </table>
+            </div>
+
+            <div class="section-header"><div class="section-title">AI Model Parameters</div></div>
+            <div class="model-sec">
+              <div class="mp-title">Current model configuration</div>
+              <div class="mp-row"><span class="mp-label">Model version</span><span class="mp-val good">v3.2.1</span></div>
+              <div class="mp-row"><span class="mp-label">Last trained</span><span class="mp-val good">6h ago</span></div>
+              <div class="mp-row"><span class="mp-label">Training data period</span><span class="mp-val">14 months</span></div>
+              <div class="mp-row"><span class="mp-label">Forecast horizon</span><span class="mp-val">30 min</span></div>
+              <div class="mp-row"><span class="mp-label">Confidence threshold</span><span class="mp-val">75%</span></div>
+              <div class="mp-row"><span class="mp-label">Data completeness</span><span class="mp-val good">94%</span></div>
+              <div class="mp-row"><span class="mp-label">Anomaly sensitivity</span><span class="mp-val warn">Medium</span></div>
+              <div class="mp-row"><span class="mp-label">Load forecast MAPE</span><span class="mp-val good">2.8%</span></div>
+              <div class="mp-row"><span class="mp-label">Dispatch algorithm</span><span class="mp-val">Economic dispatch</span></div>
+              <div class="mp-row"><span class="mp-label">Fuel cost priority</span><span class="mp-val">Enabled</span></div>
+              <button class="btn-edit-model" onclick="showEngineerToast('AI model parameter editor opened')">Edit Model Parameters</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="eng-toast" id="eng-toast"></div>
+
 <!-- ═══════════════ SECTION LEADER DASHBOARD ═══════════════ -->
 <div id="page-sectionleader" class="page">
 
@@ -1650,6 +2136,7 @@
       <div class="topnav-tab">Shift Report</div>
       <div class="topnav-tab">Cost Analysis</div>
       <div class="topnav-tab">Approvals</div>
+      <div class="topnav-tab">Generate Report</div>
       <div class="topnav-tab">Team</div>
     </div>
     <div class="topnav-right">
@@ -1695,6 +2182,19 @@
       <div class="sl-kpi-value" style="color:var(--amber);">2</div>
       <div class="sl-kpi-sub">AI recommendations</div>
     </div>
+  </div>
+
+  <!-- REPORT TOOLBAR -->
+  <div class="sl-report-toolbar">
+    <div class="sl-report-toolbar-left">
+      <span class="sl-report-label">Report Data Range</span>
+      <select id="sl-report-range" class="sl-report-select">
+        <option value="Last 7 Days">Last 7 Days</option>
+        <option value="Last 1 Week">Last 1 Week</option>
+        <option value="Last 1 Month">Last 1 Month</option>
+      </select>
+    </div>
+    <button class="sl-report-btn" onclick="generateSLReport()">Generate Report</button>
   </div>
 
   <!-- MAIN CONTENT -->
@@ -1946,6 +2446,12 @@
   }
 
   function doSignin() {
+    if (currentPersona.initials === 'BM') {
+      document.getElementById('page-signin').classList.remove('active');
+      document.getElementById('page-engineer').classList.add('active');
+      initEngineerDashboard();
+      return;
+    }
     if (currentPersona.initials === 'AA') {
       document.getElementById('page-signin').classList.remove('active');
       document.getElementById('page-sectionleader').classList.add('active');
@@ -2157,6 +2663,162 @@
       const el = document.getElementById('sl-pending-count');
       if (el) el.textContent = slPendingCount + ' pending';
     }
+
+    function generateSLReport() {
+      const rangeEl = document.getElementById('sl-report-range');
+      const selectedRange = rangeEl ? rangeEl.value : 'Last 7 Days';
+      const t = document.getElementById('toast');
+      t.textContent = 'Report generated for ' + selectedRange;
+      t.classList.add('show');
+      setTimeout(() => { t.classList.remove('show'); }, 3000);
+    }
+
+      // ─── ENGINEER ───
+      let engTimerStarted = false;
+      let engInteractionsBound = false;
+
+      function signOutEngineer() {
+        document.getElementById('page-engineer').classList.remove('active');
+        document.getElementById('page-signin').classList.add('active');
+      }
+
+      function initEngineerDashboard() {
+        document.getElementById('eng-avatar').textContent = currentPersona.initials;
+        document.getElementById('eng-name').textContent = currentPersona.name;
+        updateEngineerTime();
+        if (!engTimerStarted) {
+          setInterval(updateEngineerTime, 1000);
+          engTimerStarted = true;
+        }
+        if (!engInteractionsBound) {
+          bindEngineerInteractions();
+          engInteractionsBound = true;
+        }
+        drawEngineerVoltChart();
+      }
+
+      function updateEngineerTime() {
+        const el = document.getElementById('eng-tm');
+        if (el) el.textContent = new Date().toLocaleTimeString('en-GB', {hour12:false});
+      }
+
+      function bindEngineerInteractions() {
+        document.querySelectorAll('#page-engineer .topnav-tab').forEach(tab => {
+          tab.addEventListener('click', function() {
+            document.querySelectorAll('#page-engineer .topnav-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+          });
+        });
+
+        document.querySelectorAll('#eng-tabs .etab').forEach(tab => {
+          tab.addEventListener('click', function() {
+            document.querySelectorAll('#eng-tabs .etab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+          });
+        });
+
+        document.querySelectorAll('#eng-filters .fp').forEach(tab => {
+          tab.addEventListener('click', function() {
+            document.querySelectorAll('#eng-filters .fp').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+          });
+        });
+      }
+
+      function selectEngineerAnomaly(el, interval, score) {
+        document.querySelectorAll('#page-engineer .an-row').forEach(r => r.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('eng-det-title').textContent = 'Engineering detail — anomaly interval ' + interval;
+        document.getElementById('eng-det-score').textContent = 'Anomaly score: ' + score;
+      }
+
+      function showEngineerToast(msg) {
+        const t = document.getElementById('eng-toast');
+        t.textContent = '✓ ' + msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 3500);
+      }
+
+      function drawEngineerVoltChart() {
+        const canvas = document.getElementById('eng-volt-chart');
+        if (!canvas) return;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.max(760, Math.round(rect.width || 760));
+        canvas.height = 140;
+        const ctx = canvas.getContext('2d');
+
+        const w = canvas.width;
+        const h = canvas.height;
+        const pts = [];
+        const labels = [];
+
+        for (let i = 0; i <= 48; i++) {
+          const t = i / 48;
+          const base = 33.2;
+          let v = base;
+          if (i >= 18 && i <= 20) v = 31.8 + (Math.random() * 0.3);
+          else if (i >= 8 && i <= 10) v = 32.5 + (Math.random() * 0.2);
+          else if (i >= 6 && i <= 7) v = 32.7 + (Math.random() * 0.2);
+          else v = base + ((Math.random() - 0.5) * 0.15);
+          pts.push(v);
+          if (i % 12 === 0) labels.push({ x: Math.round(t * (w - 60) + 30), label: ['06:00','07:00','08:00','09:00','10:00'][Math.floor(i/12)] });
+        }
+
+        const minV = 31.5;
+        const maxV = 34.5;
+        const rng = maxV - minV;
+        const yp = (v) => h - 10 - ((v - minV) / rng) * (h - 30);
+        const xp = (i) => Math.round((i / 48) * (w - 60) + 30);
+
+        ctx.clearRect(0, 0, w, h);
+
+        ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+        ctx.lineWidth = 1;
+        [32.5, 33.0, 33.5, 34.0].forEach(v => {
+          ctx.beginPath();
+          ctx.moveTo(30, yp(v));
+          ctx.lineTo(w - 30, yp(v));
+          ctx.stroke();
+          ctx.fillStyle = '#4a5568';
+          ctx.font = '9px Share Tech Mono';
+          ctx.fillText(v + ' kV', 2, yp(v) + 3);
+        });
+
+        ctx.fillStyle = 'rgba(0,212,160,0.06)';
+        ctx.fillRect(30, yp(33.5), w - 60, yp(32.5) - yp(33.5));
+        ctx.strokeStyle = 'rgba(0,212,160,0.2)';
+        ctx.lineWidth = 0.5;
+        ctx.setLineDash([3,3]);
+        ctx.beginPath(); ctx.moveTo(30, yp(33.5)); ctx.lineTo(w - 30, yp(33.5)); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(30, yp(32.5)); ctx.lineTo(w - 30, yp(32.5)); ctx.stroke();
+        ctx.setLineDash([]);
+
+        [[16,21,'rgba(245,166,35,0.12)'],[7,11,'rgba(245,166,35,0.07)'],[5,8,'rgba(245,166,35,0.07)']].forEach(([a,b,col]) => {
+          ctx.fillStyle = col;
+          ctx.fillRect(xp(a), 10, xp(b) - xp(a), h - 20);
+          ctx.strokeStyle = 'rgba(245,166,35,0.3)';
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(xp(a), 10); ctx.lineTo(xp(a), h - 10); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(xp(b), 10); ctx.lineTo(xp(b), h - 10); ctx.stroke();
+        });
+
+        ctx.strokeStyle = '#00d4a0';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        pts.forEach((v, i) => {
+          if (i === 0) ctx.moveTo(xp(i), yp(v));
+          else ctx.lineTo(xp(i), yp(v));
+        });
+        ctx.stroke();
+
+        labels.forEach(l => {
+          ctx.fillStyle = '#4a5568';
+          ctx.font = '9px Share Tech Mono';
+          ctx.textAlign = 'center';
+          ctx.fillText(l.label, l.x, h);
+        });
+        ctx.textAlign = 'left';
+      }
 </script>
 </body>
 </html>
