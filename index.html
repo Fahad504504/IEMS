@@ -1052,6 +1052,168 @@
   ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+
+    /* ═══════════════════════════════════════════
+       SECTION LEADER DASHBOARD
+    ═══════════════════════════════════════════ */
+    #page-sectionleader { background: var(--bg-primary); height: 100vh; overflow: hidden; }
+
+    .sl-kpi-bar {
+      background: #0d1220;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      min-height: 86px;
+      flex-shrink: 0;
+    }
+
+    .sl-kpi-cell {
+      padding: 12px 16px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .sl-kpi-cell:last-child { border-right: none; }
+
+    .sl-kpi-label {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 5px;
+    }
+
+    .sl-kpi-value {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    .sl-kpi-sub { font-size: 10px; color: var(--text-muted); }
+    .sl-kpi-trend { font-size: 10px; margin-top: 3px; }
+    .sl-trend-up { color: var(--teal); }
+    .sl-trend-down { color: var(--red); }
+
+    .sl-main-content {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .sl-left {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .sl-left-scroll { flex: 1; overflow-y: auto; }
+    .sl-left-scroll::-webkit-scrollbar { width: 4px; }
+    .sl-left-scroll::-webkit-scrollbar-track { background: var(--bg-primary); }
+    .sl-left-scroll::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+
+    .sl-right { display: flex; flex-direction: column; overflow-y: auto; background: #0d1220; }
+    .sl-right::-webkit-scrollbar { width: 4px; }
+    .sl-right::-webkit-scrollbar-track { background: var(--bg-primary); }
+    .sl-right::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+
+    .sl-section { padding: 14px 16px; border-bottom: 1px solid var(--border); background: #0d1220; }
+
+    .sl-section-title {
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sl-shift-table { width: 100%; border-collapse: collapse; }
+    .sl-shift-table th {
+      font-size: 10px; color: var(--text-muted); text-transform: uppercase;
+      letter-spacing: 1px; padding: 5px 8px; text-align: left;
+      border-bottom: 1px solid var(--border-bright); font-weight: 500;
+    }
+    .sl-shift-table td {
+      padding: 7px 8px; font-size: 11px; color: var(--text-secondary);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .sl-shift-table tr:last-child td { border-bottom: none; }
+    .sl-shift-table .td-mono { font-family: var(--font-mono); font-size: 11px; }
+
+    .sl-badge { font-size: 9px; padding: 2px 7px; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+    .sl-badge-active  { background: rgba(0,212,160,0.15); color: var(--teal); }
+    .sl-badge-complete { background: rgba(74,85,104,0.2); color: var(--grey); }
+    .sl-badge-incoming { background: rgba(245,166,35,0.15); color: var(--amber); }
+
+    .sl-trend-chart { display: flex; align-items: flex-end; gap: 2px; height: 56px; padding: 0 2px; }
+    .sl-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+    .sl-bar { width: 100%; border-radius: 2px 2px 0 0; min-height: 4px; }
+
+    .sl-gtg-mini {
+      background: var(--bg-card);
+      border: 1px solid var(--border-bright);
+      border-radius: 4px;
+      padding: 12px;
+      border-top-width: 2px;
+    }
+
+    .sl-approval-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-bright);
+      border-radius: 4px;
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+    .sl-approval-item:last-child { margin-bottom: 0; }
+    .sl-approval-item.pending  { border-left: 3px solid var(--amber); }
+    .sl-approval-item.approved { border-left: 3px solid var(--teal); opacity: 0.7; }
+    .sl-approval-item.rejected { border-left: 3px solid var(--red);  opacity: 0.5; }
+
+    .sl-approval-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .sl-approval-title { font-family: var(--font-head); font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    .sl-approval-time  { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); }
+    .sl-approval-desc  { font-size: 11px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 10px; }
+    .sl-approval-actions { display: flex; gap: 6px; }
+
+    .sl-btn-approve {
+      flex: 1; padding: 6px;
+      background: rgba(0,212,160,0.12); border: 1px solid rgba(0,212,160,0.5);
+      border-radius: 3px; color: var(--teal); font-family: var(--font-head);
+      font-size: 11px; font-weight: 600; cursor: pointer; letter-spacing: 1px;
+      text-transform: uppercase; transition: all 0.2s;
+    }
+    .sl-btn-approve:hover { background: rgba(0,212,160,0.25); }
+
+    .sl-btn-reject {
+      flex: 1; padding: 6px;
+      background: rgba(232,64,64,0.08); border: 1px solid rgba(232,64,64,0.4);
+      border-radius: 3px; color: var(--red); font-family: var(--font-head);
+      font-size: 11px; font-weight: 600; cursor: pointer; letter-spacing: 1px;
+      text-transform: uppercase; transition: all 0.2s;
+    }
+    .sl-btn-reject:hover { background: rgba(232,64,64,0.18); }
+
+    .sl-team-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .sl-team-item:last-child { border-bottom: none; }
+    .sl-team-avatar { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-head); font-size: 11px; font-weight: 700; flex-shrink: 0; }
+    .sl-team-info { flex: 1; }
+    .sl-team-name { font-size: 12px; color: var(--text-primary); font-weight: 500; margin-bottom: 1px; }
+    .sl-team-role { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
+
+    .sl-cost-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .sl-cost-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 4px; padding: 10px 12px; }
+    .sl-cost-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .sl-cost-val { font-family: var(--font-mono); font-size: 18px; line-height: 1; }
 </style>
 </head>
 <body>
@@ -1474,6 +1636,303 @@
 
 <!-- TOAST -->
 <div class="toast" id="toast">Recommendation accepted — GTG-02 dispatch updated to 28.0 MW</div>
+<!-- ═══════════════ SECTION LEADER DASHBOARD ═══════════════ -->
+<div id="page-sectionleader" class="page">
+
+  <!-- TOP NAV -->
+  <nav class="topnav">
+    <div class="topnav-brand">
+      <div class="topnav-logo">IEMS</div>
+      <div class="topnav-plant">POWER PLANT-1</div>
+    </div>
+    <div class="topnav-tabs" id="sl-tabs">
+      <div class="topnav-tab active">Overview</div>
+      <div class="topnav-tab">Shift Report</div>
+      <div class="topnav-tab">Cost Analysis</div>
+      <div class="topnav-tab">Approvals</div>
+      <div class="topnav-tab">Team</div>
+    </div>
+    <div class="topnav-right">
+      <div class="topnav-time" id="sl-live-time">--:--:--</div>
+      <div class="alarm-badge"><div class="alarm-dot"></div>1 ACTIVE ALARM &nbsp;132 kV</div>
+      <div class="topnav-user">
+        <div class="topnav-avatar" id="sl-nav-avatar" style="background:var(--amber);color:#0a0e1a;">AA</div>
+        <span id="sl-nav-name">Abdullateef Al Ali</span>
+      </div>
+      <div class="topnav-tab" onclick="signOutSL()" style="color:var(--red);font-size:12px;">Sign Out</div>
+    </div>
+  </nav>
+
+  <!-- KPI BAR -->
+  <div class="sl-kpi-bar">
+    <div class="sl-kpi-cell">
+      <div class="sl-kpi-label">Plant Efficiency</div>
+      <div class="sl-kpi-value" style="color:var(--teal);">54.7<span style="font-size:13px;color:var(--text-secondary)"> %</span></div>
+      <div class="sl-kpi-trend sl-trend-down">▼ 2.1% vs yesterday</div>
+    </div>
+    <div class="sl-kpi-cell">
+      <div class="sl-kpi-label">Total Generation</div>
+      <div class="sl-kpi-value" style="color:var(--teal);">52.5<span style="font-size:13px;color:var(--text-secondary)"> MW</span></div>
+      <div class="sl-kpi-sub">of 96 MW capacity</div>
+    </div>
+    <div class="sl-kpi-cell">
+      <div class="sl-kpi-label">Export Cost / hr</div>
+      <div class="sl-kpi-value" style="color:var(--amber);">$734</div>
+      <div class="sl-kpi-sub">Gen cost: $1.97k/hr</div>
+    </div>
+    <div class="sl-kpi-cell">
+      <div class="sl-kpi-label">CO₂ This Hour</div>
+      <div class="sl-kpi-value" style="color:var(--red);">374<span style="font-size:13px;color:var(--text-secondary)"> kg</span></div>
+      <div class="sl-kpi-trend sl-trend-down">▲ +2.3% vs target</div>
+    </div>
+    <div class="sl-kpi-cell">
+      <div class="sl-kpi-label">Active Alarms</div>
+      <div class="sl-kpi-value" style="color:var(--red);">1</div>
+      <div class="sl-kpi-sub" style="color:var(--red);">132 kV undervoltage</div>
+    </div>
+    <div class="sl-kpi-cell">
+      <div class="sl-kpi-label">Pending Approvals</div>
+      <div class="sl-kpi-value" style="color:var(--amber);">2</div>
+      <div class="sl-kpi-sub">AI recommendations</div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="sl-main-content">
+
+    <!-- LEFT PANEL (scrollable) -->
+    <div class="sl-left">
+      <div class="sl-left-scroll">
+
+        <!-- Shift Performance -->
+        <div class="sl-section">
+          <div class="sl-section-title"><div class="live-dot"></div>Shift Performance Summary</div>
+          <table class="sl-shift-table">
+            <thead>
+              <tr>
+                <th>Shift</th>
+                <th>Lead Operator</th>
+                <th>Avg Efficiency</th>
+                <th>Gen (MWh)</th>
+                <th>Incidents</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Day &nbsp;06:00 – 14:00</td>
+                <td>Zakir Khan</td>
+                <td class="td-mono" style="color:var(--teal);">56.2%</td>
+                <td class="td-mono" style="color:var(--teal);">43.8</td>
+                <td class="td-mono" style="color:var(--amber);">1</td>
+                <td><span class="sl-badge sl-badge-active">Active</span></td>
+              </tr>
+              <tr>
+                <td>Evening &nbsp;14:00 – 22:00</td>
+                <td>Omar Al Rashid</td>
+                <td class="td-mono" style="color:var(--text-secondary);">53.8%</td>
+                <td class="td-mono" style="color:var(--text-secondary);">41.2</td>
+                <td class="td-mono" style="color:var(--teal);">0</td>
+                <td><span class="sl-badge sl-badge-complete">Complete</span></td>
+              </tr>
+              <tr>
+                <td>Night &nbsp;22:00 – 06:00</td>
+                <td>Khalid Al Ameri</td>
+                <td class="td-mono" style="color:var(--text-secondary);">51.4%</td>
+                <td class="td-mono" style="color:var(--text-secondary);">39.7</td>
+                <td class="td-mono" style="color:var(--teal);">0</td>
+                <td><span class="sl-badge sl-badge-complete">Complete</span></td>
+              </tr>
+              <tr>
+                <td>Evening &nbsp;14:00 – 22:00</td>
+                <td>Yusuf Al Blooshi</td>
+                <td class="td-mono" style="color:var(--text-muted);">—</td>
+                <td class="td-mono" style="color:var(--text-muted);">—</td>
+                <td class="td-mono" style="color:var(--text-muted);">—</td>
+                <td><span class="sl-badge sl-badge-incoming">Incoming</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 24h Generation Trend -->
+        <div class="sl-section">
+          <div class="sl-section-title">24-Hour Generation Trend (MW)</div>
+          <div id="sl-trend-chart" class="sl-trend-chart"></div>
+          <div style="display:flex;justify-content:space-between;margin-top:5px;">
+            <span style="font-size:9px;color:var(--text-muted);font-family:var(--font-mono);">00:00</span>
+            <span style="font-size:9px;color:var(--text-muted);font-family:var(--font-mono);">06:00</span>
+            <span style="font-size:9px;color:var(--text-muted);font-family:var(--font-mono);">12:00</span>
+            <span style="font-size:9px;color:var(--text-muted);font-family:var(--font-mono);">18:00</span>
+            <span style="font-size:9px;color:var(--text-muted);font-family:var(--font-mono);">Now</span>
+          </div>
+        </div>
+
+        <!-- GTG Summary -->
+        <div class="sl-section">
+          <div class="sl-section-title">Gas Turbine Generator Summary</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+            <div class="sl-gtg-mini" style="border-top-color:var(--teal);">
+              <div style="font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">GTG-01</div>
+              <div style="font-family:var(--font-mono);font-size:22px;color:var(--teal);line-height:1;margin-bottom:2px;">28.5 <span style="font-size:12px;color:var(--text-secondary)">MW</span></div>
+              <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;">89% load · Active</div>
+              <div style="height:3px;background:var(--border-bright);border-radius:2px;overflow:hidden;"><div style="width:89%;height:100%;background:var(--teal);border-radius:2px;"></div></div>
+            </div>
+            <div class="sl-gtg-mini" style="border-top-color:var(--amber);">
+              <div style="font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">GTG-02</div>
+              <div style="font-family:var(--font-mono);font-size:22px;color:var(--amber);line-height:1;margin-bottom:2px;">24.0 <span style="font-size:12px;color:var(--text-secondary)">MW</span></div>
+              <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;">75% load · Pending ↑</div>
+              <div style="height:3px;background:var(--border-bright);border-radius:2px;overflow:hidden;"><div style="width:75%;height:100%;background:var(--amber);border-radius:2px;"></div></div>
+            </div>
+            <div class="sl-gtg-mini" style="border-top-color:var(--grey);">
+              <div style="font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">GTG-03</div>
+              <div style="font-family:var(--font-mono);font-size:22px;color:var(--grey);line-height:1;margin-bottom:2px;">— <span style="font-size:12px;">MW</span></div>
+              <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;">Standby · ~8 min start</div>
+              <div style="height:3px;background:var(--border-bright);border-radius:2px;overflow:hidden;"><div style="width:0%;height:100%;background:var(--grey);border-radius:2px;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cost vs Budget -->
+        <div class="sl-section" style="border-bottom:none;">
+          <div class="sl-section-title">Cost &amp; Budget — Current Shift</div>
+          <div class="sl-cost-grid">
+            <div class="sl-cost-card">
+              <div class="sl-cost-label">Budget Allocated</div>
+              <div class="sl-cost-val" style="color:var(--teal);">$24,000</div>
+            </div>
+            <div class="sl-cost-card">
+              <div class="sl-cost-label">Spent to Date</div>
+              <div class="sl-cost-val" style="color:var(--amber);">$18,740</div>
+            </div>
+            <div class="sl-cost-card">
+              <div class="sl-cost-label">Remaining</div>
+              <div class="sl-cost-val" style="color:var(--teal);">$5,260</div>
+            </div>
+            <div class="sl-cost-card">
+              <div class="sl-cost-label">Budget Used</div>
+              <div class="sl-cost-val" style="color:var(--amber);">78.1%</div>
+            </div>
+          </div>
+          <div style="margin-top:12px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:10px;color:var(--text-muted);">
+              <span>Budget utilisation</span><span style="font-family:var(--font-mono);">78.1%</span>
+            </div>
+            <div style="height:7px;background:var(--bg-elevated);border-radius:4px;overflow:hidden;">
+              <div style="width:78.1%;height:100%;background:linear-gradient(90deg,var(--teal),var(--amber));border-radius:4px;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL (scrollable) -->
+    <div class="sl-right">
+
+      <!-- Pending Approvals -->
+      <div class="sl-section">
+        <div class="sl-section-title">
+          <div class="live-dot"></div>
+          Pending Approvals
+          <span style="margin-left:auto;background:rgba(245,166,35,0.15);color:var(--amber);font-size:10px;padding:2px 8px;border-radius:2px;font-family:var(--font-mono);" id="sl-pending-count">2 pending</span>
+        </div>
+
+        <div class="sl-approval-item pending" id="sl-ap-1">
+          <div class="sl-approval-header">
+            <span class="sl-approval-title">GTG-02 Dispatch ↑ 28 MW</span>
+            <span class="sl-approval-time">09:14</span>
+          </div>
+          <div class="sl-approval-desc">AI recommends increasing GTG-02 output from 24.0 MW to 28.0 MW. Estimated fuel cost reduction: ~4.2% ($82/hr). Confidence: 87%.</div>
+          <div class="sl-approval-actions">
+            <button class="sl-btn-approve" onclick="slApprove('sl-ap-1','GTG-02 dispatch approved — output set to 28 MW')">Approve</button>
+            <button class="sl-btn-reject"  onclick="slReject('sl-ap-1')">Reject</button>
+          </div>
+        </div>
+
+        <div class="sl-approval-item pending" id="sl-ap-2">
+          <div class="sl-approval-header">
+            <span class="sl-approval-title">GTG-03 Maintenance Window</span>
+            <span class="sl-approval-time">08:52</span>
+          </div>
+          <div class="sl-approval-desc">Engineer recommends scheduling GTG-03 maintenance during low-demand period (22:00–02:00). Expected downtime: 3 hrs. Risk: Low.</div>
+          <div class="sl-approval-actions">
+            <button class="sl-btn-approve" onclick="slApprove('sl-ap-2','GTG-03 maintenance window approved for 22:00–02:00')">Approve</button>
+            <button class="sl-btn-reject"  onclick="slReject('sl-ap-2')">Reject</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Alarm -->
+      <div class="sl-section">
+        <div class="sl-section-title" style="color:var(--red);"><div class="alarm-dot"></div>Active Alarm</div>
+        <div style="background:rgba(232,64,64,0.07);border:1px solid rgba(232,64,64,0.3);border-left:3px solid var(--red);border-radius:4px;padding:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--red);">132 kV Undervoltage</span>
+            <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">Since 08:41</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-secondary);line-height:1.5;margin-bottom:8px;">
+            Measured: 128.4 kV (nominal: 132 kV). Operator Zakir Khan notified. Monitoring in progress.
+          </div>
+          <div style="display:flex;gap:6px;">
+            <div style="flex:1;background:var(--bg-elevated);border-radius:3px;padding:6px 10px;font-size:10px;color:var(--text-muted);">Duration: <span style="font-family:var(--font-mono);color:var(--amber);">43 min</span></div>
+            <div style="flex:1;background:var(--bg-elevated);border-radius:3px;padding:6px 10px;font-size:10px;color:var(--text-muted);">Deviation: <span style="font-family:var(--font-mono);color:var(--red);">−2.7%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team on Duty -->
+      <div class="sl-section">
+        <div class="sl-section-title">Team on Duty — Current Shift</div>
+        <div class="sl-team-item">
+          <div class="sl-team-avatar" style="background:rgba(0,212,160,0.2);color:var(--teal);border:1px solid rgba(0,212,160,0.4);">ZK</div>
+          <div class="sl-team-info"><div class="sl-team-name">Zakir Khan</div><div class="sl-team-role">Control Room Operator</div></div>
+          <span class="sl-badge sl-badge-active">On Duty</span>
+        </div>
+        <div class="sl-team-item">
+          <div class="sl-team-avatar" style="background:rgba(61,139,255,0.2);color:var(--blue);border:1px solid rgba(61,139,255,0.4);">BM</div>
+          <div class="sl-team-info"><div class="sl-team-name">Bader Al Mansoori</div><div class="sl-team-role">Electrical Engineer</div></div>
+          <span class="sl-badge sl-badge-active">On Duty</span>
+        </div>
+        <div class="sl-team-item">
+          <div class="sl-team-avatar" style="background:rgba(61,139,255,0.2);color:var(--blue);border:1px solid rgba(61,139,255,0.4);">FA</div>
+          <div class="sl-team-info"><div class="sl-team-name">Faisal Al Hosani</div><div class="sl-team-role">Field Technician</div></div>
+          <span class="sl-badge sl-badge-active">On Duty</span>
+        </div>
+        <div class="sl-team-item">
+          <div class="sl-team-avatar" style="background:rgba(74,85,104,0.2);color:var(--grey);border:1px solid rgba(74,85,104,0.4);">YB</div>
+          <div class="sl-team-info"><div class="sl-team-name">Yusuf Al Blooshi</div><div class="sl-team-role">Control Room Operator</div></div>
+          <span class="sl-badge sl-badge-incoming">Incoming</span>
+        </div>
+      </div>
+
+      <!-- Key Actions -->
+      <div class="sl-section" style="border-bottom:none;">
+        <div class="sl-section-title">Key Actions Required</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--bg-elevated);border-radius:3px;border-left:2px solid var(--amber);">
+            <span style="font-family:var(--font-mono);font-size:10px;color:var(--amber);flex-shrink:0;margin-top:1px;">01</span>
+            <span style="font-size:11px;color:var(--text-secondary);line-height:1.5;">Review and approve GTG-02 dispatch recommendation before 10:00.</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--bg-elevated);border-radius:3px;border-left:2px solid var(--amber);">
+            <span style="font-family:var(--font-mono);font-size:10px;color:var(--amber);flex-shrink:0;margin-top:1px;">02</span>
+            <span style="font-size:11px;color:var(--text-secondary);line-height:1.5;">Sign off on last night's shift report (Khalid Al Ameri — Night shift).</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--bg-elevated);border-radius:3px;border-left:2px solid var(--red);">
+            <span style="font-family:var(--font-mono);font-size:10px;color:var(--red);flex-shrink:0;margin-top:1px;">03</span>
+            <span style="font-size:11px;color:var(--text-secondary);line-height:1.5;">Monitor 132 kV alarm — escalate to Substation team if unresolved within 30 min.</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--bg-elevated);border-radius:3px;border-left:2px solid var(--text-muted);">
+            <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);flex-shrink:0;margin-top:1px;">04</span>
+            <span style="font-size:11px;color:var(--text-secondary);line-height:1.5;">Submit monthly budget utilisation report by end of shift.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 <script>
   // ─── PERSONAS ───
@@ -1487,6 +1946,12 @@
   }
 
   function doSignin() {
+    if (currentPersona.initials === 'AA') {
+      document.getElementById('page-signin').classList.remove('active');
+      document.getElementById('page-sectionleader').classList.add('active');
+      initSLDashboard();
+      return;
+    }
     document.getElementById('nav-avatar').textContent = currentPersona.initials;
     document.getElementById('nav-name').textContent = currentPersona.name;
     document.getElementById('page-signin').classList.remove('active');
@@ -1625,6 +2090,73 @@
       this.classList.add('active');
     });
   });
+
+    // ─── SECTION LEADER ───
+    let slTimerStarted = false;
+    let slPendingCount = 2;
+
+    function signOutSL() {
+      document.getElementById('page-sectionleader').classList.remove('active');
+      document.getElementById('page-signin').classList.add('active');
+    }
+
+    function initSLDashboard() {
+      document.getElementById('sl-nav-avatar').textContent = currentPersona.initials;
+      document.getElementById('sl-nav-name').textContent = currentPersona.name;
+      slUpdateTime();
+      if (!slTimerStarted) {
+        setInterval(slUpdateTime, 1000);
+        slTimerStarted = true;
+      }
+      buildSLTrend();
+    }
+
+    function slUpdateTime() {
+      const el = document.getElementById('sl-live-time');
+      if (el) el.textContent = new Date().toLocaleTimeString('en-GB', {hour12:false});
+    }
+
+    function buildSLTrend() {
+      const data = [38,35,32,30,28,31,35,40,45,48,50,52,54,55,53,52,51,50,52,53,52,52,51,52.5];
+      const max = 60;
+      const el = document.getElementById('sl-trend-chart');
+      if (!el) return;
+      el.innerHTML = '';
+      data.forEach((v, i) => {
+        const pct = (v / max * 100).toFixed(0);
+        const isNow = i === data.length - 1;
+        const col = isNow ? 'var(--teal)' : v > 50 ? '#1d9e75' : v > 40 ? '#1d6b9e' : '#2a3a5a';
+        el.innerHTML += `<div class="sl-bar-wrap" title="${v} MW"><div class="sl-bar" style="height:${pct}%;background:${col};"></div></div>`;
+      });
+    }
+
+    function slApprove(id, message) {
+      const item = document.getElementById(id);
+      item.classList.remove('pending');
+      item.classList.add('approved');
+      item.querySelector('.sl-approval-actions').innerHTML =
+        '<span style="font-size:11px;color:var(--teal);font-family:var(--font-head);letter-spacing:1px;">✓ APPROVED</span>';
+      slDecrement();
+      const t = document.getElementById('toast');
+      t.textContent = message;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    function slReject(id) {
+      const item = document.getElementById(id);
+      item.classList.remove('pending');
+      item.classList.add('rejected');
+      item.querySelector('.sl-approval-actions').innerHTML =
+        '<span style="font-size:11px;color:var(--red);font-family:var(--font-head);letter-spacing:1px;">✗ REJECTED</span>';
+      slDecrement();
+    }
+
+    function slDecrement() {
+      slPendingCount = Math.max(0, slPendingCount - 1);
+      const el = document.getElementById('sl-pending-count');
+      if (el) el.textContent = slPendingCount + ' pending';
+    }
 </script>
 </body>
 </html>
