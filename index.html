@@ -1573,6 +1573,7 @@
   // ─── LIVE BALANCE LIST ───
   function buildBalanceList() {
     const el = document.getElementById('lbr-list');
+    el.innerHTML = '';
     loads.forEach(d => {
       const max = loads[0].val;
       const pct = (d.val / max * 100).toFixed(0);
