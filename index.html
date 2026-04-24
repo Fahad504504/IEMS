@@ -1533,6 +1533,123 @@
     }
 
     .sl-report-btn:hover { background: var(--teal-dim); }
+
+  /* ═══════════════════════════════════════════
+     MOBILE / TABLET RESPONSIVE FIXES
+  ═══════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    body { overflow-x: auto; }
+
+    #page-dashboard,
+    #page-engineer,
+    #page-sectionleader {
+      height: auto;
+      min-height: 100vh;
+      overflow: auto;
+    }
+
+    .topnav {
+      height: auto;
+      min-height: 48px;
+      padding: 8px 10px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .topnav-brand {
+      margin-right: 0;
+      padding-right: 0;
+      border-right: none;
+    }
+
+    .topnav-tabs {
+      width: 100%;
+      order: 3;
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+      flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .topnav-tab {
+      flex: 0 0 auto;
+    }
+
+    .topnav-right {
+      margin-left: auto;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .metric-bar {
+      width: max-content;
+      min-width: 1320px;
+    }
+
+    .main-content,
+    #page-engineer .eng-main,
+    .sl-main-content {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      overflow: visible;
+    }
+
+    .left-panel,
+    #page-engineer .eng-left-panel,
+    .sl-left {
+      border-right: none;
+    }
+
+    .right-panel,
+    #page-engineer .eng-right-panel,
+    .sl-right {
+      border-top: 1px solid var(--border);
+      min-height: 320px;
+    }
+
+    #page-engineer .eng-tabs {
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+      flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #page-engineer .etab {
+      flex: 0 0 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .signin-container {
+      grid-template-columns: 1fr;
+      max-width: 100%;
+      min-height: auto;
+    }
+
+    .signin-left {
+      padding: 28px 20px;
+      border-right: none;
+      border-bottom: 1px solid var(--border-bright);
+    }
+
+    .signin-right {
+      padding: 28px 20px;
+    }
+
+    .signin-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .signin-tagline {
+      font-size: 28px;
+    }
+
+    .metric-bar {
+      min-width: 1180px;
+    }
+  }
 </style>
 </head>
 <body>
