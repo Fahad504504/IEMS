@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEMS — Intelligent Energy Management System</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg-primary: #0a0e1a;
+    --bg-surface: #111827;
+    --bg-elevated: #1a2236;
+    --bg-card: #141c2e;
+    --teal: #00d4a0;
+    --teal-dim: #00a87d;
+    --teal-glow: rgba(0,212,160,0.15);
+    --amber: #f5a623;
+    --amber-dim: #c4821a;
+    --red: #e84040;
+    --red-dim: #b02e2e;
+    --green: #4caf7d;
+    --green-dim: #357a57;
+    --blue: #3d8bff;
+    --grey: #4a5568;
+    --text-primary: #e8edf5;
+    --text-secondary: #8896aa;
+    --text-muted: #4a5568;
+    --border: rgba(255,255,255,0.06);
+    --border-bright: rgba(255,255,255,0.12);
+    --font-head: 'Rajdhani', sans-serif;
+    --font-body: 'Exo 2', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── PAGES ─── */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: flex; flex-direction: column; }
+  #page-dashboard { flex-direction: column; }
+
+  /* ═══════════════════════════════════════════
+     SIGN-IN PAGE
+  ═══════════════════════════════════════════ */
+  #page-signin {
+    background: var(--bg-primary);
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .signin-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,160,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,160,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .signin-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,212,160,0.08) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .signin-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 0;
+    min-height: 600px;
+    border: 1px solid var(--border-bright);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .signin-left {
+    background: linear-gradient(135deg, rgba(0,212,160,0.08) 0%, rgba(10,14,26,0.95) 60%);
+    padding: 60px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--border-bright);
+    position: relative;
+  }
+
+  .signin-left::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+  }
+
+  .signin-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+
+  .signin-brand-icon {
+    width: 44px; height: 44px;
+    border: 2px solid var(--teal);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-head);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--teal);
+    letter-spacing: 2px;
+  }
+
+  .signin-brand-text {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .signin-brand-sub {
+    font-size: 11px;
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .signin-tagline {
+    font-family: var(--font-head);
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+  }
+
+  .signin-tagline span { color: var(--teal); }
+
+  .signin-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 400px;
+    margin-bottom: 40px;
+  }
+
+  .signin-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .signin-stat {
+    padding: 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  .signin-stat-val {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    color: var(--teal);
+    margin-bottom: 4px;
+  }
+
+  .signin-stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .signin-right {
+    background: var(--bg-surface);
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .signin-form-title {
+    font-family: var(--font-head);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .signin-form-sub {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 36px;
+  }
+
+  .persona-select-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+  }
+
+  .persona-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .persona-btn {
+    padding: 10px 12px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-bright);
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+  }
+
+  .persona-btn:hover, .persona-btn.selected {
+    border-color: var(--teal);
+    background: rgba(0,212,160,0.08);
+  }
+
+  .persona-btn-role {
+    font-size: 11px;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+
+  .persona-btn-name {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 11px 14px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-bright);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-input:focus { border-color: var(--teal); }
+
+  .signin-btn {
+    width: 100%;
+    padding: 13px;
+    background: var(--teal);
+    border: none;
+    border-radius: 4px;
+    color: #0a0e1a;
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+
+  .signin-btn:hover { background: var(--teal-dim); }
+
+  .signin-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ═══════════════════════════════════════════
+     DASHBOARD
+  ═══════════════════════════════════════════ */
+  #page-dashboard { background: var(--bg-primary); }
+
+  /* TOP NAV */
+  .topnav {
+    height: 48px;
+    background: #0d1220;
+    border-bottom: 1px solid var(--border-bright);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 0;
+    flex-shrink: 0;
+  }
+
+  .topnav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-right: 20px;
+    border-right: 1px solid var(--border);
+    margin-right: 16px;
+  }
+
+  .topnav-logo {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--teal);
+    letter-spacing: 2px;
+  }
+
+  .topnav-plant {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 1px;
+  }
+
+  .topnav-tabs {
+    display: flex;
+    gap: 0;
+    flex: 1;
+  }
+
+  .topnav-tab {
+    padding: 0 18px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .topnav-tab:hover { color: var(--text-primary); }
+  .topnav-tab.active { color: var(--teal); border-bottom-color: var(--teal); }
+
+  .topnav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: auto;
+  }
+
+  .alarm-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(232,64,64,0.15);
+    border: 1px solid rgba(232,64,64,0.4);
+    border-radius: 3px;
+    font-size: 11px;
+    color: var(--red);
+    font-weight: 600;
+    animation: pulse-border 2s infinite;
+  }
+
+  @keyframes pulse-border {
+    0%, 100% { border-color: rgba(232,64,64,0.4); }
+    50% { border-color: rgba(232,64,64,0.9); }
+  }
+
+  .alarm-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: blink 1s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .topnav-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+
+  .topnav-avatar {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #0a0e1a;
+  }
+
+  .topnav-time {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* METRIC BAR */
+  .metric-bar {
+    background: #0d1220;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr 1fr 1fr 260px 220px;
+    min-height: 100px;
+    flex-shrink: 0;
+  }
+
+  .metric-cell {
+    padding: 14px 20px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .metric-cell:last-child { border-right: none; }
+
+  .metric-cell-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .metric-cell-label .info-icon {
+    width: 13px; height: 13px;
+    border: 1px solid var(--text-muted);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    cursor: pointer;
+  }
+
+  /* Gauge / Donut */
+  .gauge-wrap { display: flex; align-items: center; gap: 12px; }
+
+  .donut-svg { width: 72px; height: 72px; }
+
+  .donut-val {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--teal);
+  }
+
+  .donut-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* Big number cells */
+  .big-number {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--amber);
+    line-height: 1;
+  }
+
+  .big-number.green { color: var(--teal); }
+  .big-number.red { color: var(--red); }
+
+  .cost-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cost-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .cost-val {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    color: var(--amber);
+  }
+
+  .cost-val.zero { color: var(--teal); }
+
+  /* Substation / GenLoad tiles */
+  .sub-tiles { display: flex; flex-direction: column; gap: 8px; }
+
+  .sub-tile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    background: var(--bg-elevated);
+    border-radius: 3px;
+  }
+
+  .sub-tile-label { font-size: 11px; color: var(--text-secondary); }
+  .sub-tile-val {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--teal);
+    background: rgba(0,212,160,0.1);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .sub-tile-val.red-val {
+    color: var(--red);
+    background: rgba(232,64,64,0.1);
+  }
+
+  /* Relative error donut */
+  .rel-error-wrap { text-align: center; }
+  .rel-error-val {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    color: var(--red);
+    margin-top: 4px;
+  }
+
+  /* MAIN CONTENT */
+  .main-content {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* LEFT — Sankey + GTG */
+  .left-panel {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .section-header {
+    padding: 10px 16px;
+    background: #0d1220;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  /* GTG STATUS STRIP */
+  .gtg-strip {
+    background: #0d1220;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 16px;
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .gtg-card {
+    flex: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--border-bright);
+    border-radius: 4px;
+    padding: 10px 14px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gtg-card.active { border-color: rgba(0,212,160,0.4); }
+  .gtg-card.standby { border-color: rgba(74,85,104,0.4); }
+  .gtg-card.pending { border-color: rgba(245,166,35,0.4); }
+
+  .gtg-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .gtg-card.active::before { background: var(--teal); }
+  .gtg-card.standby::before { background: var(--grey); }
+  .gtg-card.pending::before { background: var(--amber); }
+
+  .gtg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .gtg-id {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 1px;
+  }
+
+  .gtg-status {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .status-active { background: rgba(0,212,160,0.15); color: var(--teal); }
+  .status-standby { background: rgba(74,85,104,0.2); color: var(--grey); }
+  .status-pending { background: rgba(245,166,35,0.15); color: var(--amber); }
+
+  .gtg-mw {
+    font-family: var(--font-mono);
+    font-size: 26px;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .gtg-mw.active-mw { color: var(--teal); }
+  .gtg-mw.standby-mw { color: var(--grey); }
+  .gtg-mw.pending-mw { color: var(--amber); }
+
+  .gtg-label { font-size: 10px; color: var(--text-muted); margin-bottom: 8px; }
+
+  .gtg-bar-wrap {
+    height: 4px;
+    background: var(--border-bright);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .gtg-bar { height: 100%; border-radius: 2px; transition: width 1s ease; }
+  .bar-active { background: var(--teal); }
+  .bar-standby { background: var(--grey); }
+  .bar-pending { background: var(--amber); }
+
+  .gtg-sub {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* SANKEY AREA */
+  .sankey-area {
+    flex: 1;
+    padding: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .sankey-svg-wrap {
+    flex: 1;
+    min-height: 0;
+  }
+
+  #sankey-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* VOLTAGE LEVELS */
+  .voltage-strip {
+    background: #0d1220;
+    border-top: 1px solid var(--border);
+    padding: 10px 16px;
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .volt-card {
+    flex: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--border-bright);
+    border-radius: 4px;
+    padding: 8px 12px;
+    position: relative;
+  }
+
+  .volt-card.normal { border-color: rgba(0,212,160,0.3); }
+  .volt-card.alarm { border-color: rgba(232,64,64,0.4); }
+  .volt-card.warning { border-color: rgba(245,166,35,0.3); }
+
+  .volt-level {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .volt-value {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--teal);
+    margin-bottom: 2px;
+  }
+
+  .volt-value.alarm-val { color: var(--red); }
+  .volt-value.warning-val { color: var(--amber); }
+
+  .volt-status-pill {
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    display: inline-block;
+  }
+
+  .pill-normal { background: rgba(0,212,160,0.12); color: var(--teal); }
+  .pill-alarm { background: rgba(232,64,64,0.12); color: var(--red); }
+  .pill-warning { background: rgba(245,166,35,0.12); color: var(--amber); }
+
+  /* LOAD BAR for volt */
+  .volt-load-bar {
+    height: 3px;
+    background: var(--border-bright);
+    border-radius: 2px;
+    margin-top: 5px;
+    overflow: hidden;
+  }
+
+  .volt-load-fill { height: 100%; border-radius: 2px; }
+
+  /* RIGHT PANEL */
+  .right-panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* CO2 */
+  .co2-section {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    background: #0d1220;
+    flex-shrink: 0;
+  }
+
+  .co2-value {
+    font-family: var(--font-mono);
+    font-size: 36px;
+    color: var(--red);
+    line-height: 1;
+    margin: 8px 0 4px;
+  }
+
+  .co2-sub { font-size: 12px; color: var(--text-muted); }
+
+  /* POWER BALANCE - area totals */
+  .balance-section {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    background: #0d1220;
+    flex-shrink: 0;
+  }
+
+  .balance-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .balance-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    width: 80px;
+    flex-shrink: 0;
+  }
+
+  .balance-bar-wrap {
+    flex: 1;
+    height: 16px;
+    background: var(--bg-elevated);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .balance-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+    display: flex;
+    align-items: center;
+    padding-right: 4px;
+    justify-content: flex-end;
+  }
+
+  .balance-val {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--bg-primary);
+    font-weight: 600;
+  }
+
+  .balance-mwh {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-secondary);
+    width: 70px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* LIVE POWER BALANCE LIST */
+  .live-balance-section {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 16px;
+    background: #0d1220;
+  }
+
+  .live-balance-section::-webkit-scrollbar { width: 4px; }
+  .live-balance-section::-webkit-scrollbar-track { background: var(--bg-primary); }
+  .live-balance-section::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+
+  .lbr {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .lbr-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    width: 90px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .lbr-bar-wrap {
+    flex: 1;
+    height: 10px;
+    background: var(--bg-elevated);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .lbr-fill {
+    height: 100%;
+    border-radius: 1px;
+    background: linear-gradient(90deg, var(--green-dim), var(--teal), var(--amber));
+  }
+
+  .lbr-val {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-secondary);
+    width: 65px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* AI RECOMMENDATION PANEL */
+  .ai-panel {
+    margin: 0 16px 12px;
+    background: var(--bg-card);
+    border: 1px solid rgba(0,212,160,0.3);
+    border-left: 3px solid var(--teal);
+    border-radius: 4px;
+    padding: 14px;
+    flex-shrink: 0;
+  }
+
+  .ai-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .ai-label {
+    font-size: 10px;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+  }
+
+  .ai-confidence {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--teal);
+    background: rgba(0,212,160,0.1);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .ai-text {
+    font-size: 12px;
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .ai-conf-bar {
+    height: 4px;
+    background: var(--border-bright);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .ai-conf-fill {
+    height: 100%;
+    background: var(--teal);
+    border-radius: 2px;
+    width: 87%;
+  }
+
+  .ai-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-accept {
+    flex: 1;
+    padding: 7px;
+    background: var(--green-dim);
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-family: var(--font-head);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: background 0.2s;
+  }
+
+  .btn-accept:hover { background: var(--green); }
+
+  .btn-modify {
+    flex: 1.4;
+    padding: 7px;
+    background: transparent;
+    border: 1px solid var(--amber);
+    border-radius: 3px;
+    color: var(--amber);
+    font-family: var(--font-head);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .btn-modify:hover { background: rgba(245,166,35,0.1); }
+
+  /* CONFIRMATION TOAST */
+  .toast {
+    position: fixed;
+    top: 60px; right: 20px;
+    background: var(--green-dim);
+    border: 1px solid var(--green);
+    border-radius: 4px;
+    padding: 10px 16px;
+    font-size: 13px;
+    color: white;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE helpers */
+  .flex-row { display: flex; align-items: center; gap: 8px; }
+
+  /* LIVE indicator */
+  .live-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    animation: blink 2s infinite;
+  }
+
+  /* scrollbar for main */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ SIGN-IN PAGE ═══════════════ -->
+<div id="page-signin" class="page active">
+  <div class="signin-grid-bg"></div>
+  <div class="signin-glow"></div>
+  <div class="signin-container">
+    <div class="signin-left">
+      <div>
+        <div class="signin-brand">
+          <div class="signin-brand-icon">IEM</div>
+          <div>
+            <div class="signin-brand-text">IEMS</div>
+            <div class="signin-brand-sub">Intelligent Energy Management System</div>
+          </div>
+        </div>
+        <div class="signin-tagline">Smarter power.<br><span>Safer operations.</span></div>
+        <div class="signin-desc">
+          AI-powered generation dispatch, voltage stability monitoring, and real-time load balancing for POWER PLANT-1. Designed for the people who keep the lights on.
+        </div>
+      </div>
+      <div class="signin-stats">
+        <div class="signin-stat">
+          <div class="signin-stat-val">96 MW</div>
+          <div class="signin-stat-label">Rated capacity</div>
+        </div>
+        <div class="signin-stat">
+          <div class="signin-stat-val">5</div>
+          <div class="signin-stat-label">Voltage levels</div>
+        </div>
+        <div class="signin-stat">
+          <div class="signin-stat-val">3 GTG</div>
+          <div class="signin-stat-label">Gas turbines</div>
+        </div>
+      </div>
+    </div>
+    <div class="signin-right">
+      <div class="signin-form-title">Access Portal</div>
+      <div class="signin-form-sub">Select your role and sign in to continue</div>
+
+      <div class="persona-select-label">Select your persona</div>
+      <div class="persona-grid">
+        <button class="persona-btn selected" onclick="selectPersona(this,'ZK','Zakir Khan','Control Room Operator')">
+          <div class="persona-btn-role">Operator</div>
+          <div class="persona-btn-name">Zakir Khan</div>
+        </button>
+        <button class="persona-btn" onclick="selectPersona(this,'BM','Bader Al Mansoori','Electrical Engineer')">
+          <div class="persona-btn-role">Engineer</div>
+          <div class="persona-btn-name">Bader Al Mansoori</div>
+        </button>
+        <button class="persona-btn" onclick="selectPersona(this,'AA','Abdullateef Al Ali','Section Leader')">
+          <div class="persona-btn-role">Section Leader</div>
+          <div class="persona-btn-name">Abdullateef Al Ali</div>
+        </button>
+        <button class="persona-btn" onclick="selectPersona(this,'GU','Guest User','Read Only')">
+          <div class="persona-btn-role">Read Only</div>
+          <div class="persona-btn-name">Guest / Visitor</div>
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input class="form-input" type="text" id="inp-user" value="zakir.khan" placeholder="Enter username">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" type="password" id="inp-pass" value="••••••••" placeholder="Enter password">
+      </div>
+
+      <button class="signin-btn" onclick="doSignin()">Sign In to IEMS</button>
+      <div class="signin-footer">POWER PLANT-1 &nbsp;|&nbsp; Secure industrial access &nbsp;|&nbsp; v2.4.1</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DASHBOARD PAGE ═══════════════ -->
+<div id="page-dashboard" class="page">
+
+  <!-- TOP NAV -->
+  <nav class="topnav">
+    <div class="topnav-brand">
+      <div class="topnav-logo">IEMS</div>
+      <div class="topnav-plant">POWER PLANT-1</div>
+    </div>
+    <div class="topnav-tabs">
+      <div class="topnav-tab active">Overview</div>
+      <div class="topnav-tab">Process Area</div>
+      <div class="topnav-tab">Substation</div>
+      <div class="topnav-tab">Assets</div>
+      <div class="topnav-tab">Parameter</div>
+      <div class="topnav-tab">Connection Status</div>
+    </div>
+    <div class="topnav-right">
+      <div class="topnav-time" id="live-time">--:--:--</div>
+      <div class="alarm-badge"><div class="alarm-dot"></div>1 ACTIVE ALARM &nbsp;132 kV</div>
+      <div class="topnav-user">
+        <div class="topnav-avatar" id="nav-avatar">ZK</div>
+        <span id="nav-name">Zakir Khan</span>
+      </div>
+      <div class="topnav-tab" onclick="signOut()" style="color:var(--red);font-size:12px;">Sign Out</div>
+    </div>
+  </nav>
+
+  <!-- METRIC BAR -->
+  <div class="metric-bar">
+
+    <!-- Total Grid donut -->
+    <div class="metric-cell">
+      <div class="metric-cell-label">Total Grid <span class="info-icon">i</span></div>
+      <div class="gauge-wrap">
+        <svg class="donut-svg" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#1a2236" stroke-width="8"/>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#e84040" stroke-width="8"
+            stroke-dasharray="60 141" stroke-dashoffset="35" stroke-linecap="round" transform="rotate(-90 40 40)"/>
+          <text x="40" y="38" text-anchor="middle" font-family="Share Tech Mono" font-size="9" fill="#e8edf5">-21.4</text>
+          <text x="40" y="50" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#8896aa">MWh</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Total Generation donut -->
+    <div class="metric-cell">
+      <div class="metric-cell-label">Total Generation <span class="info-icon">i</span></div>
+      <div class="gauge-wrap">
+        <svg class="donut-svg" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#1a2236" stroke-width="8"/>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#00d4a0" stroke-width="8"
+            stroke-dasharray="130 71" stroke-dashoffset="35" stroke-linecap="round" transform="rotate(-90 40 40)"/>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#f5a623" stroke-width="8"
+            stroke-dasharray="10 131" stroke-dashoffset="-95" stroke-linecap="round" transform="rotate(-90 40 40)"/>
+          <text x="40" y="38" text-anchor="middle" font-family="Share Tech Mono" font-size="9" fill="#00d4a0">126</text>
+          <text x="40" y="50" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#8896aa">MWh</text>
+        </svg>
+        <div>
+          <div class="donut-val">52.5 MW</div>
+          <div class="donut-sub">Active now</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Power used in Process -->
+    <div class="metric-cell">
+      <div class="metric-cell-label">Power used in Process area</div>
+      <div class="gauge-wrap">
+        <svg class="donut-svg" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#1a2236" stroke-width="8"/>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#00d4a0" stroke-width="8"
+            stroke-dasharray="128 73" stroke-dashoffset="35" stroke-linecap="round" transform="rotate(-90 40 40)"/>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#e84040" stroke-width="8"
+            stroke-dasharray="8 133" stroke-dashoffset="-93" stroke-linecap="round" transform="rotate(-90 40 40)"/>
+          <text x="40" y="38" text-anchor="middle" font-family="Share Tech Mono" font-size="11" fill="#00d4a0">64.1</text>
+          <text x="40" y="50" text-anchor="middle" font-family="Share Tech Mono" font-size="8" fill="#8896aa">%</text>
+        </svg>
+        <div>
+          <div class="donut-val">48.0 MW</div>
+          <div class="donut-sub">Process load</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Costs -->
+    <div class="metric-cell">
+      <div class="cost-row">
+        <div class="cost-item">
+          <span>Export cost / hr</span>
+          <span class="cost-val">$734</span>
+        </div>
+        <div class="cost-item">
+          <span>Import cost / hr</span>
+          <span class="cost-val zero">$0</span>
+        </div>
+        <div class="cost-item">
+          <span>Generation cost / hr</span>
+          <span class="cost-val">$1.97k</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Substation Total & Gen vs Load -->
+    <div class="metric-cell">
+      <div class="sub-tiles">
+        <div>
+          <div class="metric-cell-label" style="margin-bottom:4px;">Substation Total <span class="info-icon">i</span></div>
+          <div class="sub-tile">
+            <span class="sub-tile-label">Active substations</span>
+            <span class="sub-tile-val">114 MWh</span>
+          </div>
+        </div>
+        <div>
+          <div class="metric-cell-label" style="margin-bottom:4px;margin-top:8px;">Gen vs Load Delta</div>
+          <div style="display:flex;gap:6px;">
+            <div class="sub-tile" style="flex:1;">
+              <span class="sub-tile-label">125 kW</span>
+            </div>
+            <div class="sub-tile" style="flex:1;">
+              <span class="sub-tile-val red-val">-9.42 MW</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Relative error -->
+    <div class="metric-cell" style="align-items:center;">
+      <div class="metric-cell-label">Relative Error <span class="info-icon">i</span></div>
+      <div class="rel-error-wrap">
+        <svg width="80" height="60" viewBox="0 0 80 60">
+          <circle cx="40" cy="48" r="34" fill="none" stroke="#1a2236" stroke-width="7" stroke-dasharray="107 107" stroke-dashoffset="-53" transform="rotate(0 40 48)"/>
+          <circle cx="40" cy="48" r="34" fill="none" stroke="#e84040" stroke-width="7" stroke-dasharray="30 77" stroke-dashoffset="-53" stroke-linecap="round" transform="rotate(0 40 48)"/>
+        </svg>
+        <div class="rel-error-val">-7.60%</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content" style="height: calc(100vh - 48px - 100px); overflow:hidden;">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+
+      <!-- GTG Status Strip -->
+      <div class="section-header">
+        <div class="live-dot"></div>
+        <div class="section-title">Running GTG Production Status</div>
+      </div>
+      <div class="gtg-strip">
+        <div class="gtg-card active">
+          <div class="gtg-header">
+            <span class="gtg-id">GTG-01</span>
+            <span class="gtg-status status-active">Active</span>
+          </div>
+          <div class="gtg-mw active-mw">28.5 <span style="font-size:14px;color:var(--text-secondary)">MW</span></div>
+          <div class="gtg-label">Output / Rated: 32 MW</div>
+          <div class="gtg-bar-wrap"><div class="gtg-bar bar-active" style="width:89%"></div></div>
+          <div class="gtg-sub"><span>89% load</span><span>Heat rate: 9,842 kJ/kWh</span></div>
+        </div>
+        <div class="gtg-card pending">
+          <div class="gtg-header">
+            <span class="gtg-id">GTG-02</span>
+            <span class="gtg-status status-pending">Pending</span>
+          </div>
+          <div class="gtg-mw pending-mw">24.0 <span style="font-size:14px;color:var(--text-secondary)">MW</span></div>
+          <div class="gtg-label">Output / Rated: 32 MW — AI recommends ↑28 MW</div>
+          <div class="gtg-bar-wrap"><div class="gtg-bar bar-pending" style="width:75%"></div></div>
+          <div class="gtg-sub"><span>75% load</span><span>Efficiency: 34.2%</span></div>
+        </div>
+        <div class="gtg-card standby">
+          <div class="gtg-header">
+            <span class="gtg-id">GTG-03</span>
+            <span class="gtg-status status-standby">Standby</span>
+          </div>
+          <div class="gtg-mw standby-mw">— <span style="font-size:14px;">MW</span></div>
+          <div class="gtg-label">Offline — available for dispatch</div>
+          <div class="gtg-bar-wrap"><div class="gtg-bar bar-standby" style="width:0%"></div></div>
+          <div class="gtg-sub"><span>0% load</span><span>Start time: ~8 min</span></div>
+        </div>
+        <div class="gtg-card" style="border-color:rgba(0,212,160,0.2);flex:0.6;">
+          <div class="gtg-header">
+            <span class="gtg-id" style="font-size:11px;">TOTAL</span>
+          </div>
+          <div class="gtg-mw active-mw" style="font-size:22px;">52.5 <span style="font-size:13px;color:var(--text-secondary)">MW</span></div>
+          <div class="gtg-label">of 96 MW capacity</div>
+          <div class="gtg-bar-wrap"><div class="gtg-bar bar-active" style="width:54.7%"></div></div>
+          <div class="gtg-sub"><span>54.7% utilisation</span></div>
+        </div>
+      </div>
+
+      <!-- Sankey -->
+      <div class="section-header" style="margin-top:0;">
+        <div class="live-dot"></div>
+        <div class="section-title">Live Substations — Power Flow</div>
+        <span style="margin-left:auto;font-size:11px;color:var(--text-muted);font-family:var(--font-mono);">Site: 135.15 MWh</span>
+      </div>
+
+      <div class="sankey-area">
+        <svg id="sankey-svg" viewBox="0 0 860 320" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="sg1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#1d6b9e;stop-opacity:0.9"/>
+              <stop offset="100%" style="stop-color:#1d9e75;stop-opacity:0.7"/>
+            </linearGradient>
+            <linearGradient id="sg2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#1d6b9e;stop-opacity:0.8"/>
+              <stop offset="100%" style="stop-color:#3d8bff;stop-opacity:0.6"/>
+            </linearGradient>
+          </defs>
+          <!-- Source block -->
+          <rect x="10" y="30" width="180" height="250" rx="3" fill="#1a3a5c" stroke="#1d6b9e" stroke-width="1"/>
+          <text x="100" y="145" text-anchor="middle" font-family="Share Tech Mono" font-size="11" fill="#8896aa">total_generation_p</text>
+          <text x="100" y="162" text-anchor="middle" font-family="Share Tech Mono" font-size="13" fill="#00d4a0">125.60</text>
+
+          <!-- Site block -->
+          <rect x="270" y="30" width="100" height="250" rx="3" fill="#1a3a5c" stroke="#1d6b9e" stroke-width="1"/>
+          <text x="320" y="148" text-anchor="middle" font-family="Share Tech Mono" font-size="11" fill="#8896aa">Site</text>
+          <text x="320" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="12" fill="#e8edf5">135.15</text>
+          <text x="320" y="180" text-anchor="middle" font-family="Share Tech Mono" font-size="9" fill="#4a5568">MWh</text>
+
+          <!-- Flow from gen to site -->
+          <path d="M190,155 Q230,155 270,155" fill="none" stroke="url(#sg1)" stroke-width="180" stroke-opacity="0.35"/>
+          <path d="M190,155 Q230,155 270,155" fill="none" stroke="#00d4a0" stroke-width="1.5" stroke-opacity="0.6"/>
+
+          <!-- Substation loads — right side -->
+          <g id="sankey-loads"></g>
+        </svg>
+      </div>
+
+      <!-- Voltage Levels -->
+      <div class="voltage-strip">
+        <div class="volt-card alarm">
+          <div class="volt-level">132 kV</div>
+          <div class="volt-value alarm-val">128.4 kV</div>
+          <span class="volt-status-pill pill-alarm">Active Alarm</span>
+          <div class="volt-load-bar"><div class="volt-load-fill" style="width:97%;background:var(--red);"></div></div>
+        </div>
+        <div class="volt-card normal">
+          <div class="volt-level">33 kV</div>
+          <div class="volt-value">33.2 kV</div>
+          <span class="volt-status-pill pill-normal">Normal</span>
+          <div class="volt-load-bar"><div class="volt-load-fill" style="width:50%;background:var(--teal);"></div></div>
+        </div>
+        <div class="volt-card normal">
+          <div class="volt-level">11 kV</div>
+          <div class="volt-value">11.1 kV</div>
+          <span class="volt-status-pill pill-normal">Normal</span>
+          <div class="volt-load-bar"><div class="volt-load-fill" style="width:51%;background:var(--teal);"></div></div>
+        </div>
+        <div class="volt-card normal">
+          <div class="volt-level">3.3 kV</div>
+          <div class="volt-value">3.31 kV</div>
+          <span class="volt-status-pill pill-normal">Normal</span>
+          <div class="volt-load-bar"><div class="volt-load-fill" style="width:56%;background:var(--teal);"></div></div>
+        </div>
+        <div class="volt-card warning">
+          <div class="volt-level">415 V</div>
+          <div class="volt-value warning-val">414 V</div>
+          <span class="volt-status-pill pill-warning">Advisory</span>
+          <div class="volt-load-bar"><div class="volt-load-fill" style="width:53%;background:var(--amber);"></div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+      <!-- AI Recommendation -->
+      <div style="padding:12px 16px 0; flex-shrink:0; background:#0d1220; border-bottom:1px solid var(--border);">
+        <div class="metric-cell-label" style="margin-bottom:8px;">
+          <span class="live-dot" style="width:5px;height:5px;"></span>
+          &nbsp;AI Recommendation
+        </div>
+      </div>
+      <div style="padding:0 0 0 0; flex-shrink:0; background:#0d1220; border-bottom:1px solid var(--border);">
+        <div class="ai-panel" style="margin:12px 12px;">
+          <div class="ai-panel-header">
+            <span class="ai-label">AI Dispatch Recommendation</span>
+            <span class="ai-confidence">87% confidence</span>
+          </div>
+          <div class="ai-text">Bring GTG-02 from 24.0 MW to 28.0 MW. Reduces total fuel cost by ~4.2% at current demand profile.</div>
+          <div class="ai-conf-bar"><div class="ai-conf-fill"></div></div>
+          <div class="ai-actions">
+            <button class="btn-accept" onclick="acceptRec()">Accept</button>
+            <button class="btn-modify">Enter my own values</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CO2 -->
+      <div class="co2-section">
+        <div class="metric-cell-label">CO₂ Emissions — Current Hour</div>
+        <div class="co2-value">374.97 <span style="font-size:18px;">kg</span></div>
+        <div class="co2-sub">+2.3% vs target &nbsp;|&nbsp; 24h total: 8,924 kg</div>
+      </div>
+
+      <!-- Live Power Balance — area totals -->
+      <div class="balance-section">
+        <div class="metric-cell-label" style="margin-bottom:10px;">Live Power Balance — Area Totals</div>
+        <div class="balance-row">
+          <span class="balance-label">Area 1 Total</span>
+          <div class="balance-bar-wrap">
+            <div class="balance-bar-fill" style="width:82%;background:linear-gradient(90deg,#4caf7d,#f5a623,#e84040);">
+              <span class="balance-val">82%</span>
+            </div>
+          </div>
+          <span class="balance-mwh">31.77 MWh</span>
+        </div>
+        <div class="balance-row">
+          <span class="balance-label">Area 2 Total</span>
+          <div class="balance-bar-wrap">
+            <div class="balance-bar-fill" style="width:57%;background:linear-gradient(90deg,#4caf7d,#f5a623);">
+              <span class="balance-val">57%</span>
+            </div>
+          </div>
+          <span class="balance-mwh">22.19 MWh</span>
+        </div>
+        <div class="balance-row">
+          <span class="balance-label">Area 3 Total</span>
+          <div class="balance-bar-wrap">
+            <div class="balance-bar-fill" style="width:33%;background:#4caf7d;">
+              <span class="balance-val">33%</span>
+            </div>
+          </div>
+          <span class="balance-mwh">12.82 MWh</span>
+        </div>
+      </div>
+
+      <!-- Live Power Balance list -->
+      <div class="live-balance-section">
+        <div class="metric-cell-label" style="margin-bottom:10px;">Live Power Balance — Substation Detail</div>
+        <div id="lbr-list"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Recommendation accepted — GTG-02 dispatch updated to 28.0 MW</div>
+
+<script>
+  // ─── PERSONAS ───
+  let currentPersona = { initials:'ZK', name:'Zakir Khan', role:'Control Room Operator' };
+
+  function selectPersona(btn, initials, name, role) {
+    document.querySelectorAll('.persona-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    currentPersona = { initials, name, role };
+    document.getElementById('inp-user').value = name.toLowerCase().replace(/\s+/,'.');
+  }
+
+  function doSignin() {
+    document.getElementById('nav-avatar').textContent = currentPersona.initials;
+    document.getElementById('nav-name').textContent = currentPersona.name;
+    document.getElementById('page-signin').classList.remove('active');
+    document.getElementById('page-dashboard').classList.add('active');
+    initDashboard();
+  }
+
+  function signOut() {
+    document.getElementById('page-dashboard').classList.remove('active');
+    document.getElementById('page-signin').classList.add('active');
+  }
+
+  // ─── TIME ───
+  function updateTime() {
+    const now = new Date();
+    document.getElementById('live-time').textContent =
+      now.toLocaleTimeString('en-GB', {hour12:false});
+  }
+  setInterval(updateTime, 1000);
+
+  // ─── SANKEY LOADS ───
+  const loads = [
+    {label:'SS518_Loads', val:38.88}, {label:'total_grid', val:21.39},
+    {label:'SS502_Loads', val:16.42}, {label:'SS505_Loads', val:11.02},
+    {label:'SS501_Loads', val:5.81},  {label:'SS507_Loads', val:6.57},
+    {label:'SS508_Loads', val:6.48},  {label:'SS512_Loads', val:5.39},
+    {label:'SS513_Loads', val:5.22},  {label:'SS514_Loads', val:5.48},
+    {label:'SS503_Loads', val:4.08},  {label:'SS504_Loads', val:2.15},
+    {label:'SS515_Loads', val:2.18},  {label:'SS500_Loads', val:0.86},
+    {label:'SS506_Loads', val:1.00},  {label:'SS509_Loads', val:1.00},
+  ];
+
+  function buildSankey() {
+    const g = document.getElementById('sankey-loads');
+    const total = loads.reduce((a,b) => a+b.val, 0);
+    const svgH = 320;
+    const startY = 30;
+    const availH = 250;
+    let cy = startY;
+    const sourceX = 370;
+    const barX = 700;
+    const barMaxW = 100;
+
+    loads.forEach((d, i) => {
+      const h = Math.max(6, (d.val / total) * availH);
+      const midY = cy + h/2;
+      const frac = d.val / loads[0].val;
+      const stroke = Math.max(2, frac * 30);
+      const alpha = 0.15 + frac * 0.6;
+
+      // flow path
+      const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      const cp1x = sourceX + 100; const cp2x = barX - 60;
+      path.setAttribute('d', `M${sourceX},155 C${cp1x},155 ${cp2x},${midY} ${barX},${midY}`);
+      path.setAttribute('fill','none');
+      path.setAttribute('stroke', i===0 ? '#00a87d' : i===2 ? '#3d8bff' : '#1d6b9e');
+      path.setAttribute('stroke-width', stroke);
+      path.setAttribute('stroke-opacity', alpha);
+      g.appendChild(path);
+
+      // end bar
+      const bw = Math.max(4, (d.val / loads[0].val) * barMaxW);
+      const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      rect.setAttribute('x', barX); rect.setAttribute('y', cy);
+      rect.setAttribute('width', bw); rect.setAttribute('height', Math.max(5,h-1));
+      rect.setAttribute('rx','2');
+      rect.setAttribute('fill', i===0 ? '#00d4a0' : i===1 ? '#f5a623' : '#1d9e75');
+      rect.setAttribute('opacity','0.85');
+      g.appendChild(rect);
+
+      // label
+      const txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      txt.setAttribute('x', barX + bw + 6);
+      txt.setAttribute('y', midY + 4);
+      txt.setAttribute('font-family','Share Tech Mono');
+      txt.setAttribute('font-size','9');
+      txt.setAttribute('fill','#8896aa');
+      txt.textContent = `${d.label} ${d.val.toFixed(2)}`;
+      g.appendChild(txt);
+
+      cy += h;
+    });
+  }
+
+  // ─── LIVE BALANCE LIST ───
+  function buildBalanceList() {
+    const el = document.getElementById('lbr-list');
+    loads.forEach(d => {
+      const max = loads[0].val;
+      const pct = (d.val / max * 100).toFixed(0);
+      const color = d.val > 20 ? 'linear-gradient(90deg,#4caf7d,#f5a623,#e84040)'
+                  : d.val > 10 ? 'linear-gradient(90deg,#4caf7d,#f5a623)'
+                  : '#4caf7d';
+      el.innerHTML += `
+        <div class="lbr">
+          <span class="lbr-label">${d.label.replace('_Loads','').replace('_',' ')}</span>
+          <div class="lbr-bar-wrap">
+            <div class="lbr-fill" style="width:${pct}%;background:${color};"></div>
+          </div>
+          <span class="lbr-val">${d.val.toFixed(2)} MWh</span>
+        </div>`;
+    });
+  }
+
+  // ─── ACCEPT REC ───
+  function acceptRec() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    // Update GTG-02 tile
+    setTimeout(() => {
+      document.querySelectorAll('.gtg-card')[1].querySelector('.gtg-mw').textContent = '28.0 ';
+      document.querySelectorAll('.gtg-card')[1].querySelector('.gtg-bar').style.width = '87.5%';
+      document.querySelectorAll('.gtg-card')[1].querySelector('.gtg-sub').children[0].textContent = '87.5% load';
+      document.querySelectorAll('.gtg-card')[1].classList.remove('pending');
+      document.querySelectorAll('.gtg-card')[1].classList.add('active');
+      document.querySelectorAll('.gtg-card')[1].querySelector('.gtg-status').textContent = 'Active';
+      document.querySelectorAll('.gtg-card')[1].querySelector('.gtg-status').className = 'gtg-status status-active';
+      document.querySelectorAll('.gtg-card')[1].querySelector('.gtg-mw').className = 'gtg-mw active-mw';
+      document.querySelectorAll('.gtg-card')[1].querySelector('.gtg-bar').className = 'gtg-bar bar-active';
+    }, 300);
+    setTimeout(() => { t.classList.remove('show'); }, 4000);
+  }
+
+  // ─── INIT ───
+  function initDashboard() {
+    updateTime();
+    buildSankey();
+    buildBalanceList();
+  }
+
+  // Tab switching
+  document.querySelectorAll('.topnav-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.topnav-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
