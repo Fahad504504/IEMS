@@ -319,7 +319,7 @@
   /* ═══════════════════════════════════════════
      DASHBOARD
   ═══════════════════════════════════════════ */
-  #page-dashboard { background: var(--bg-primary); }
+  #page-dashboard { background: var(--bg-primary); height: 100vh; overflow: hidden; }
 
   /* TOP NAV */
   .topnav {
@@ -715,7 +715,8 @@
 
   #sankey-svg {
     width: 100%;
-    height: 100%;
+    flex: 1;
+    min-height: 0;
   }
 
   /* VOLTAGE LEVELS */
@@ -1270,7 +1271,7 @@
   </div>
 
   <!-- MAIN CONTENT -->
-  <div class="main-content" style="height: calc(100vh - 48px - 100px); overflow:hidden;">
+  <div class="main-content">
 
     <!-- LEFT PANEL -->
     <div class="left-panel">
