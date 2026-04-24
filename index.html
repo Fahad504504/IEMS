@@ -40,12 +40,11 @@
     background: var(--bg-primary);
     color: var(--text-primary);
     min-height: 100vh;
-    min-height: 100dvh;
     overflow-x: hidden;
   }
 
   /* ─── PAGES ─── */
-  .page { display: none; min-height: 100vh; min-height: 100dvh; }
+  .page { display: none; min-height: 100vh; }
   .page.active { display: flex; flex-direction: column; }
   #page-dashboard { flex-direction: column; }
 
@@ -1052,172 +1051,6 @@
   ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
-
-  /* ═══════════════════════════════════════════
-     RESPONSIVE FIXES (mobile + tablet)
-  ═══════════════════════════════════════════ */
-  @media (max-width: 1200px) {
-    .signin-container {
-      max-width: 100%;
-      margin: 16px;
-      grid-template-columns: 1fr 380px;
-    }
-
-    .metric-bar {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      min-height: 0;
-    }
-
-    .main-content {
-      grid-template-columns: 1fr;
-      height: auto !important;
-      overflow: visible !important;
-    }
-
-    .left-panel,
-    .right-panel {
-      overflow: visible;
-    }
-
-    .gtg-strip,
-    .voltage-strip {
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .gtg-card,
-    .volt-card {
-      min-width: 220px;
-      flex: 0 0 220px;
-    }
-
-    .gtg-card[style*='flex:0.6'] {
-      min-width: 180px;
-      flex: 0 0 180px !important;
-    }
-  }
-
-  @media (max-width: 900px) {
-    #page-signin {
-      align-items: stretch;
-      justify-content: flex-start;
-      padding: 14px 0;
-      overflow-y: auto;
-    }
-
-    .signin-container {
-      grid-template-columns: 1fr;
-      min-height: 0;
-    }
-
-    .signin-left {
-      padding: 30px 24px;
-      border-right: none;
-      border-bottom: 1px solid var(--border-bright);
-    }
-
-    .signin-right {
-      padding: 28px 24px;
-    }
-
-    .signin-stats {
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-
-    .signin-tagline {
-      font-size: 30px;
-    }
-
-    .topnav {
-      height: auto;
-      padding: 8px 10px;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .topnav-brand {
-      margin-right: 0;
-      padding-right: 10px;
-      border-right: none;
-    }
-
-    .topnav-right {
-      margin-left: auto;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .topnav-tabs {
-      order: 3;
-      width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      white-space: nowrap;
-      border-top: 1px solid var(--border);
-      padding-top: 6px;
-    }
-
-    .topnav-tab {
-      height: 36px;
-      padding: 0 12px;
-      flex: 0 0 auto;
-    }
-
-    .metric-cell {
-      border-right: none;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .metric-cell:last-child {
-      border-bottom: none;
-    }
-  }
-
-  @media (max-width: 560px) {
-    .signin-container {
-      margin: 10px;
-    }
-
-    .signin-left,
-    .signin-right {
-      padding: 20px 16px;
-    }
-
-    .persona-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .metric-bar {
-      grid-template-columns: 1fr;
-    }
-
-    .section-header,
-    .gtg-strip,
-    .voltage-strip,
-    .sankey-area,
-    .co2-section,
-    .balance-section,
-    .live-balance-section {
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-
-    .co2-value {
-      font-size: 30px;
-    }
-
-    .ai-panel {
-      margin: 10px;
-      padding: 12px;
-    }
-
-    .ai-actions {
-      flex-direction: column;
-    }
-  }
 </style>
 </head>
 <body>
